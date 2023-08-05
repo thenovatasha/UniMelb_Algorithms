@@ -35,7 +35,8 @@ int main(int argv, char *argc[]) {
     printf("The coins required to make %d cents are:\n", cents);
     int remaining_cents = cents;
     while (1) {
-        if (remaining_cents == 50 || remaining_cents == 20 || remaining_cents == 10 || remaining_cents == 5 || remaining_cents == 2 || remaining_cents == 1 || remaining_cents == 0) {
+        if (remaining_cents == 50 || remaining_cents == 20 || remaining_cents == 10 ||
+            remaining_cents == 5 || remaining_cents == 2 || remaining_cents == 1 || remaining_cents == 0) {
 
             printf("give a %2dc coin\n", remaining_cents);
             remaining_cents = 0;
