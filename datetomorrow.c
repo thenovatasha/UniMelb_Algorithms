@@ -7,12 +7,13 @@ The date tomorrow is: 02/01/1999*/
 
 int main(int argv, char *argc[]){
 
-    int day, month, year;
-
+    int day, month, year, max_feb = 28;
     printf("Enter a date in dd/mm/yyyy format: ");
     if (scanf("%d/%d/%d", &day, &month, &year) != 3) {
         printf("Please enter a valid date\n");
+        
     }
+    printf("The date today is: %02d/%02d/%02d\n", day, month, year);
     //Check if month is 31 days or 30
     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
         
@@ -43,21 +44,21 @@ int main(int argv, char *argc[]){
         }
 
     } else {
-        
-        if (day < 28) {
-            day += 1;
+        // If leap year, then max days = 29
+        if (year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)) {
+            max_feb = 29;
         }
-        else {
+        if (day == max_feb) {
             day = 1;
             month += 1;
         }
-        //Leap year?
-
+        else {
+            day += 1;
+        }
+        
         
     }
-    printf("Tomorrow is %02d/%02d/%d\n", day, month, year);
+    printf("The date tomorrow is: %02d/%02d/%d\n", day, month, year);
 
     return 0; 
 }
-
-/*Edit*/
