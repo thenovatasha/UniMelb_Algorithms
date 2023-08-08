@@ -26,7 +26,6 @@ int main(int argv, char *argc[])
             
         }
         
-        
         k++;
     }
     printf("\n");
