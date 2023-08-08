@@ -11,7 +11,7 @@ Mary had a little lamb,
 its fleece was white as snow.
 
 Lines:      4
-Chars:    100
+Chars:    104
 Words:     20
 
 */
