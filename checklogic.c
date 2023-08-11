@@ -21,16 +21,21 @@
 #define STAR 42
 #define FWDSLASH 47
 int main(int argc, char *argv[]) {
-	int ch, incomment = 0, slashlast = 0;
+	int ch, incomment = 0, slashlast = 0, starlast = 0;
     
 	while ((ch = getchar()) != EOF) {
 
     // check if line is in comment
         if (incomment)
-        {  
+        {   
+            
             // Ignore any other /* combinations
             if (ch == '/')
             {
+                if (starlast) {
+                    starlast = 0;
+                    continue;
+                }
                 if (slashlast)
                 {
                     printf("/");
@@ -43,38 +48,61 @@ int main(int argc, char *argv[]) {
                 
                 if (ch == '*')
                 {
+                    
                     if (slashlast) {
                         slashlast = 0;
                         continue;
                     }
-                    else
+                    if (starlast)
                     {
-                        putchar(ch);
+                        printf("*");
                     }
-                }
-                else if (ch == '\n')
-                {
-                    if (slashlast)
-                    {
-                        printf("/");
-                        slashlast = 0;
-                    }
-                    incomment = 0;
-                    printf(" */");
-                    putchar(ch);
+                    starlast = 1;
                 }
                 else
                 {
-                    if (slashlast)
+                    
+                    if (ch == '\n')
                     {
-                        printf("/");
+                        if (starlast)
+                        {
+                            printf("*");
+                            starlast = 0;
+                            
+                        }
+                        else if (slashlast)
+                        {
+                            printf("/");
+                            slashlast = 0;
+                            
+                        }
+                        incomment = 0;
+                        printf(" */");
                         putchar(ch);
+                        
                     }
                     else
                     {
-                        putchar(ch);
+                        if (starlast)
+                        {
+                            printf("*");
+                            putchar(ch);
+                        }
+                        else if (slashlast)
+                        {
+                            printf("/");
+                            putchar(ch);
+                        }
+                        else
+                        {
+                            putchar(ch);
+                        }
+                        starlast = 0;
+                        slashlast = 0;
                     }
                 }
+                
+                
             }    
         }
         else
@@ -116,10 +144,7 @@ int main(int argc, char *argv[]) {
                 
             }
 
-            // if in comment, set incomment = 1
         }
-
-
 
     }
     
@@ -127,7 +152,3 @@ int main(int argc, char *argv[]) {
     return 0;
 
 }
-
-
-
-
