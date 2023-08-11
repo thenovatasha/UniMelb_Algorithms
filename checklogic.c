@@ -1,32 +1,17 @@
-
-/* fortcomm.c: Cut out FORTRAN-style comments.
- * Alistair Moffat, December 2012, PPSAA Figure 4.13 pg58
- * (c) University of Melbourne */
-
-/* Modified by Nova Tasha*/
-
-/* Starting with the program fortcomm.c shown in Figure 4.13 on page 58 (also found in "Reading data with loops"),
- write a program that replaces each C99-style comment in the input text by an equivalent ANSI C comment. */
-
-//CHECK: 
-
-// //// ***** this code is bad, comment it out *****
-//   ^
-// printf("Hello world\n"); /* prints hello world */
-// return 0;
-// /* done, phew! */
-                         
-
 #include <stdio.h>
 #define STAR 42
 #define FWDSLASH 47
 int main(int argc, char *argv[]) {
-	int ch, incomment = 0, slashlast = 0, starlast = 0;
-    
+	int ch, in_comment = -1, slashlast = 0, starlast = 0;
+    printf("%d", slashlast);
 	while ((ch = getchar()) != EOF) {
-
+        if (in_comment == -1)
+        {
+            in_comment = 0;
+        }
+        printf("%d", in_comment);
     // check if line is in comment
-        if (incomment)
+        if (in_comment)
         {   
             
             // Ignore any other /* combinations
@@ -76,7 +61,7 @@ int main(int argc, char *argv[]) {
                             slashlast = 0;
                             
                         }
-                        incomment = 0;
+                        in_comment = 0;
                         printf(" */");
                         putchar(ch);
                         
@@ -115,7 +100,7 @@ int main(int argc, char *argv[]) {
                 //Two slashes foud
                 if (slashlast)
                 {
-                    incomment = 1;
+                    in_comment = 1;
                     printf("/*");
                     // Done checking for slashes
                     slashlast = 0;
