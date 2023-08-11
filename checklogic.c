@@ -10,44 +10,50 @@
 
 
 //     **** Start here:      //My useful program 
-                          //                    ^
+                          // ^
                           // backslash last = 0
                           // incomment = 1
                          /**/
 
-#include <stdio.h>
+                         
 
-int
-main(int argc, char *argv[]) {
+#include <stdio.h>
+#define STAR 42
+#define FWDSLASH 47
+int main(int argc, char *argv[]) {
 	int ch, incomment = 0, backslashlast = 0;
     // int hold_char = 0;
 	while ((ch = getchar()) != EOF) {
 
-        if (ch == '/') {
+        // Check for consecutive backslashes
+        
+        if (ch == '/')
+        {
             if (backslashlast) 
             {
                 incomment = 1;
                 backslashlast = 0;
                 printf("/*");
+                
             }
             else
             {
                 backslashlast = 1;
             }
-          
-        }
-        if (incomment && (ch == '\n'))
-        {
-            printf(" */");
-            incomment = 0;
         }  
+          
         if (backslashlast && ch != '/')
         {   
-            printf("/");
             backslashlast = 0;
-            
-            // putchar(ch);
+            putchar(FWDSLASH);
         }
+        if (ch == '\n')
+        {
+            if (incomment) {
+                printf("*/");
+            }
+            incomment = 0;
+        }    
         if (ch != '/')
         {
             putchar(ch);
@@ -55,7 +61,13 @@ main(int argc, char *argv[]) {
         }
 
     }
- 
+    printf("Done\n");
+    
+
     return 0;
 
 }
+
+
+
+
