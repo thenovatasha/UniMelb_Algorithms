@@ -22,7 +22,7 @@ main(int argc, char *argv[]) {
 	int ch, incomment = 0, backslashlast = 0;
     // int hold_char = 0;
 	while ((ch = getchar()) != EOF) {
-
+        
         if (ch == '/') {
             if (backslashlast) 
             {
@@ -33,8 +33,7 @@ main(int argc, char *argv[]) {
             else
             {
                 backslashlast = 1;
-            }
-          
+            } 
         }
         if (incomment && (ch == '\n'))
         {

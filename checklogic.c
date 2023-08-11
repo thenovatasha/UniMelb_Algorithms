@@ -8,60 +8,120 @@
 /* Starting with the program fortcomm.c shown in Figure 4.13 on page 58 (also found in "Reading data with loops"),
  write a program that replaces each C99-style comment in the input text by an equivalent ANSI C comment. */
 
+//CHECK: 
 
-//     **** Start here:      //My useful program 
-                          // ^
-                          // backslash last = 0
-                          // incomment = 1
-                         /**/
-
+// //// ***** this code is bad, comment it out *****
+//   ^
+// printf("Hello world\n"); /* prints hello world */
+// return 0;
+// /* done, phew! */
                          
 
 #include <stdio.h>
 #define STAR 42
 #define FWDSLASH 47
 int main(int argc, char *argv[]) {
-	int ch, incomment = 0, backslashlast = 0;
-    // int hold_char = 0;
+	int ch, incomment = 0, slashlast = 0;
+    
 	while ((ch = getchar()) != EOF) {
 
-        // Check for consecutive backslashes
-        
-        if (ch == '/')
-        {
-            if (backslashlast) 
+    // check if line is in comment
+        if (incomment)
+        {  
+            // Ignore any other /* combinations
+            if (ch == '/')
             {
-                incomment = 1;
-                backslashlast = 0;
-                printf("/*");
-                
+                if (slashlast)
+                {
+                    printf("/");
+                }
+                slashlast = 1;
+
             }
+            // if newline found, set end */
+            else {
+                
+                if (ch == '*')
+                {
+                    if (slashlast) {
+                        slashlast = 0;
+                        continue;
+                    }
+                    else
+                    {
+                        putchar(ch);
+                    }
+                }
+                else if (ch == '\n')
+                {
+                    if (slashlast)
+                    {
+                        printf("/");
+                        slashlast = 0;
+                    }
+                    incomment = 0;
+                    printf(" */");
+                    putchar(ch);
+                }
+                else
+                {
+                    if (slashlast)
+                    {
+                        printf("/");
+                        putchar(ch);
+                    }
+                    else
+                    {
+                        putchar(ch);
+                    }
+                }
+            }    
+        }
+        else
+        {
+            // Not in comment
+            
+            //Check for // combination and replace with /* combination
+            if (ch == FWDSLASH)
+            {
+                //Two slashes foud
+                if (slashlast)
+                {
+                    incomment = 1;
+                    printf("/*");
+                    // Done checking for slashes
+                    slashlast = 0;
+                }
+                else
+                {
+                    slashlast = 1;
+                }
+                
+                
+            }   
             else
             {
-                backslashlast = 1;
+                if (slashlast)
+                {
+                    // Print the previous slash then print self.
+                    printf("/");
+                    putchar(ch);
+                    slashlast = 0;
+                }
+                else
+                {
+                    putchar(ch);
+                    slashlast = 0;
+                }
+                
             }
-        }  
-          
-        if (backslashlast && ch != '/')
-        {   
-            backslashlast = 0;
-            putchar(FWDSLASH);
-        }
-        if (ch == '\n')
-        {
-            if (incomment) {
-                printf("*/");
-            }
-            incomment = 0;
-        }    
-        if (ch != '/')
-        {
-            putchar(ch);
 
+            // if in comment, set incomment = 1
         }
+
+
 
     }
-    printf("Done\n");
     
 
     return 0;
