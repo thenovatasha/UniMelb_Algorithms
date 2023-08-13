@@ -39,7 +39,7 @@ int main(int argv, char *argc[])
                 if (prev_char == '/')
                 {
                     in_comment = 1;
-                    prev_char = ch;
+                    prev_char = ' ';
                 }
                 else
                 {
