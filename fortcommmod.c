@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 	while ((ch = getchar()) != EOF) {
 
     // check if line is in comment
-        
+        printf("%i", incomment);
         if (incomment)
         {   
             
