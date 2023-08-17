@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
     printf("Enter four integers: ");
     if (scanf("%d %d %d %d", &n1, &n2, &n3, &n4) != 4) {
         printf("Couldn't read 4 values, try again");
-    };
+    }
 
     printf("max_4_ints(%d, %d, %d, %d) = %d\n",n1, n2, n3, n4, max_4_ints(n1, n2, n3, n4));
 
