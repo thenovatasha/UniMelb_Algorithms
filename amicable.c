@@ -13,6 +13,7 @@ int sum_factors(int num);
 
 int main(int argc, char *argv[]){
     int int1, int2;
+    
     printf("Enter two integers: ");
     if(scanf("%d %d", &int1, &int2) != 2) {
         printf("Enter valid values");
