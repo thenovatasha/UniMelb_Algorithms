@@ -23,10 +23,7 @@ int main(int argc, char *argv[])
 
     return 0;
 }
-// 1 1 2 3 3 4
-//     ^
-// 1 2 3 3
-//   ^  
+ 
 int most_frequent(int A[], int n)
 {
     /* Make a copy of A*/
@@ -40,6 +37,7 @@ int most_frequent(int A[], int n)
     {
         B[i] = A[i];
     }
+    /* Get sorted array*/
     sort_int_array(B, n);
     
     int prev_count = 0;
