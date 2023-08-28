@@ -30,7 +30,11 @@ int main(int argc, char *argv[])
 int most_frequent(int A[], int n)
 {
     /* Make a copy of A*/
-
+    if (n <= 0)
+    {
+        printf("Array does not exist");
+        exit(EXIT_FAILURE);
+    }
     int B[n];
     for (int i = 0; i < n; i++)
     {
@@ -46,30 +50,18 @@ int most_frequent(int A[], int n)
     {
         if (B[i] == B[i - 1])
         {
-            
-            /* its a repeat*/
             current_count++;
-            if (current_count > prev_count)
-            {
-                    /* New smallest value found */
-                    prev_greatest = B[i - 1];
-                    prev_count = current_count;
-            }
-
         }
         else
         {
-            /* Check if current count is most frequent */
-            if (current_count > prev_count)
-            {
-                
-                /* New smallest value found */
-                prev_greatest = B[i - 1];
-                prev_count = current_count;
-
-            }
-            current_count = 1;
-            
+            current_count = 1;  
+        }
+        /* Check if current count is most frequent */
+        if (current_count > prev_count)
+        {   
+            /* New smallest value found */
+            prev_greatest = B[i - 1];
+            prev_count = current_count;
         }
     }
     return prev_greatest;
@@ -122,13 +114,13 @@ int_swap(int *p1, int *p2)
     *p2 = tmp;
 }
 
-void print_arr(int nums[], int size)
+void print_arr(int *p, int size)
 {
 
     for (int i = 0; i < size; i++)
     {
 
-        printf("  %2d", nums[i]);
+        printf("  %2d", p[i]);
 
     }
     printf("\n");
